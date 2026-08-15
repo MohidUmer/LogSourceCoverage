@@ -4,24 +4,6 @@
 
 A Wazuh agent being **connected** does not necessarily mean that it is actively sending security events. LogSourceCoverage monitors both the agent's heartbeat and its actual event activity to identify silent, disconnected, newly discovered, and recovered log sources. The generated coverage events are written as structured JSON and can be collected by Wazuh for alerting and dashboard visualization.
 
----
-
-## Why Log Source Coverage Matters
-
-Traditional agent monitoring often answers:
-
-> **Is the Wazuh agent connected?**
-
-LogSourceCoverage adds another important question:
-
-> **Is the agent actually producing security telemetry?**
-
-This helps identify situations where an endpoint appears healthy from an agent-status perspective but has stopped generating events, potentially creating a blind spot for the SOC.
-
----
-
-## Features
-
 * **Heartbeat Monitoring** — detects healthy, silent, and disconnected agents.
 * **Zero-Event Detection** — identifies healthy agents that stop producing events.
 * **New Source Detection** — detects previously unknown Wazuh sources.
@@ -31,12 +13,6 @@ This helps identify situations where an endpoint appears healthy from an agent-s
 * **Structured JSON Events** — produces machine-readable monitoring events.
 * **Wazuh Integration** — generated events can be ingested and alerted on through Wazuh.
 * **Configurable Thresholds** — monitoring intervals and inactivity thresholds can be adjusted through environment variables.
-
----
-
-## Architecture
-
-![Architecture](docs/architecture.png)
 
 ---
 
@@ -119,39 +95,6 @@ Example:
   "zero_event_state": "Silent"
 }
 ```
-
-Depending on the condition, events can represent:
-
-| Condition                         | State                   |
-| --------------------------------- | ----------------------- |
-| Agent operating normally          | `Connected` / `Healthy` |
-| Agent heartbeat lost              | `Disconnected`          |
-| Agent stopped producing events    | `Silent`                |
-| Previously silent source resumes  | `Recovered`             |
-| Previously unknown source appears | `New Source`            |
-
----
-
-## Monitoring Flow
-
-### Heartbeat Monitoring
-
-![Heartbeat Flow](docs/heart-beat-flow.png)
-
-The heartbeat monitor uses the Wazuh API to determine whether registered agents are active and responsive.
-
-### Zero-Event Detection
-
-![Zero Event Flow](docs/zero-event-flow.png)
-
-The zero-event monitor compares the latest observed event from each healthy agent against the configured inactivity threshold.
-
-### New Source Detection
-
-![New Source Flow](docs/new-agent-flow.png)
-
-New sources are identified from newly observed events and automatically compared against the maintained source inventory.
-
 ---
 
 ## Wazuh Dashboard
@@ -170,8 +113,6 @@ The dashboard provides visibility into:
 * Newly discovered sources
 
 ### Dashboard View
-
-![Dashboard](screenshots/Dashboard-1.jpeg)
 
 ![Dashboard](screenshots/Dashboard-2.jpeg)
 

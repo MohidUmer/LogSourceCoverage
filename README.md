@@ -1,8 +1,6 @@
 # LogSourceCoverage - Wazuh Log Source Coverage Monitoring
 
-**LogSourceCoverage** is a lightweight monitoring layer built on top of **Wazuh** that helps Security Operations Centers identify gaps in endpoint telemetry.
-
-A Wazuh agent being **connected** does not necessarily mean that it is actively sending security events. LogSourceCoverage monitors both the agent's heartbeat and its actual event activity to identify silent, disconnected, newly discovered, and recovered log sources. The generated coverage events are written as structured JSON and can be collected by Wazuh for alerting and dashboard visualization.
+**LogSourceCoverage** is a lightweight monitoring layer built on top of **Wazuh** that helps SOC identify gaps in endpoint telemetry. It monitors both the agent's heartbeat and its activity to identify silent, disconnected, newly discovered, & recovered sources to produce structured JSON for alerting and dashboard.
 
 * **Heartbeat Monitoring** — detects healthy, silent, and disconnected agents.
 * **Zero-Event Detection** — identifies healthy agents that stop producing events.

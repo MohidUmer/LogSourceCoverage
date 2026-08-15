@@ -38,48 +38,6 @@ This helps identify situations where an endpoint appears healthy from an agent-s
 
 ![Architecture](docs/architecture.png)
 
-The monitoring pipeline works as follows:
-
-```text
-                    ┌─────────────────┐
-                    │   Wazuh Agents  │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │  Wazuh Manager  │
-                    └───────┬─┬───────┘
-                            │ │
-                 ┌──────────┘ └──────────┐
-                 ▼                       ▼
-        Wazuh API                  archives.json
-                 │                       │
-                 └──────────┬────────────┘
-                            ▼
-                 ┌─────────────────────┐
-                 │  LogSourceCoverage  │
-                 │    Monitoring Core  │
-                 └──────────┬──────────┘
-                            │
-             ┌──────────────┼──────────────┐
-             ▼              ▼              ▼
-        Heartbeat       Zero-Event     New Source
-        Monitoring      Detection      Detection
-             │              │              │
-             └──────────────┼──────────────┘
-                            ▼
-                  Coverage Events (JSON)
-                            │
-                            ▼
-                  Wazuh Log Collection
-                            │
-                            ▼
-                    Wazuh Alerts
-                            │
-                            ▼
-                   Wazuh Dashboard
-```
-
 ---
 
 ## How It Works
@@ -336,5 +294,3 @@ The following variables can be configured through `.env`:
 | `CHECK_INTERVAL`       | Monitoring polling interval                              |  `30` seconds |
 | `HEARTBEAT_THRESHOLD`  | Time before an agent is considered silent                | `300` seconds |
 | `ZERO_EVENT_THRESHOLD` | Time without events before a source is considered silent |    `1` minute |
-
----
